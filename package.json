@@ -1,0 +1,25 @@
+{
+  "name": "ractio",
+  "version": "1.0.0",
+  "description": "A sample radio player built with React.js - the clean commits provide a step by step setup guide",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paul-em/ractio.git"
+  },
+  "keywords": [
+    "radio",
+    "fm4",
+    "react",
+    "material"
+  ],
+  "author": "Paul Em",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paul-em/ractio/issues"
+  },
+  "homepage": "https://github.com/paul-em/ractio#readme"
+}
