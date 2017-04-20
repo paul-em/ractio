@@ -21,5 +21,9 @@
   "bugs": {
     "url": "https://github.com/paul-em/ractio/issues"
   },
-  "homepage": "https://github.com/paul-em/ractio#readme"
+  "homepage": "https://github.com/paul-em/ractio#readme",
+  "dependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  }
 }
