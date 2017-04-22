@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --content-base public --open"
+    "start": "webpack-dev-server --content-base public --open --history-api-fallback"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "material-ui": "^0.17.4",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-router-dom": "^4.1.1",
     "react-tap-event-plugin": "^2.0.1"
   },
   "devDependencies": {
