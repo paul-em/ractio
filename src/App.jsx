@@ -5,7 +5,6 @@ import {
   Route,
 } from 'react-router-dom';
 import Drawer from 'material-ui/Drawer';
-import AppBar from 'material-ui/AppBar';
 import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import transitions from 'material-ui/styles/transitions';
@@ -17,13 +16,16 @@ import Program from './routes/Program';
 import Stations from './routes/Stations';
 import Settings from './routes/Settings';
 import About from './routes/About';
+import MenuHeader from './components/MenuHeader';
+import MediaBar from './components/MediaBar';
 
-
+const headerHeight = 160;
 const styles = {
   content: {
     padding: 16,
     maxWidth: 800,
     transition: transitions.easeOut(null, 'padding-left', null),
+    marginTop: headerHeight,
   },
   menuLink: {
     textDecoration: 'none',
@@ -68,6 +70,9 @@ export default class App extends React.Component {
       },
       station: {
         name: 'Radio FM4',
+        shortName: 'fm4',
+        broadcast: 'Sleepless',
+        website: 'http://fm4.orf.at',
       },
     };
   }
@@ -112,13 +117,15 @@ export default class App extends React.Component {
     return <MuiThemeProvider>
       <Router>
         <div>
-          <AppBar title={this.state.station.name}
-                  onLeftIconButtonTouchTap={() => this.toggleDrawer()}
-                  iconStyleLeft={{ display: this.state.drawer.docked ? 'none' : 'block' }}
-                  style={{ paddingLeft }}/>
+          <MediaBar station={this.state.station}
+                    onLeftIconButtonTouchTap={() => this.toggleDrawer()}
+                    height={headerHeight}
+                    iconStyleLeft={{ display: this.state.drawer.docked ? 'none' : 'block' }}
+                    style={{ paddingLeft }}/>
           <Drawer open={this.state.drawer.open}
                   docked={this.state.drawer.docked}
                   onRequestChange={() => this.toggleDrawer()}>
+            <MenuHeader station={this.state.station.shortName}/>
             {routes.map(route => (
               <Link to={route.link} key={route.link} style={styles.menuLink}>
                 <MenuItem primaryText={route.title}
