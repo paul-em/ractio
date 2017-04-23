@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import Paper from 'material-ui/Paper';
 import stations from '../stations';
-import { setStation as setStationAction } from '../actions';
+import { setStation as setStationAction, updateProgram } from '../actions';
 
 const styles = {
   container: {
@@ -28,6 +28,7 @@ export default class Stations extends React.Component {
     const station = stations.find(loopStation => loopStation.shortName === shortName);
     if (station) {
       this.props.dispatch(setStationAction(station));
+      this.props.dispatch(updateProgram(station));
     }
   }
 
