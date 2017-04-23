@@ -44,7 +44,6 @@ export default class MediaBar extends React.Component {
     height: PropTypes.number,
   };
 
-
   render() {
     return <div style={{
       height: this.props.height,
@@ -61,7 +60,7 @@ export default class MediaBar extends React.Component {
                                             target="_blank"><LinkIcon /></IconButton>}/>
       <div style={{ ...styles.headlines, ...this.props.style }}>
         <h1 style={{ ...styles.headline, ...styles.h1 }}>{this.props.station.name}</h1>
-        <h2 style={styles.headline}>{this.props.station.broadcast}</h2>
+        <h2 style={styles.headline}>{this.props.broadcast}</h2>
       </div>
     </div>;
   }

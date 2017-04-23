@@ -72,6 +72,7 @@ const routes = [
 
 @connect(store => ({
   station: store.station,
+  broadcast: store.program.broadcast,
   theme: store.theme,
   dark: store.settings.dark,
 }))
@@ -88,6 +89,7 @@ export default class App extends React.Component {
 
   static propTypes = {
     station: PropTypes.object,
+    broadcast: PropTypes.string,
     theme: PropTypes.object,
     dark: PropTypes.bool,
   };
@@ -137,6 +139,7 @@ export default class App extends React.Component {
       <Router>
         <div>
           <MediaBar station={this.props.station}
+                    broadcast={this.props.broadcast}
                     theme={this.props.theme}
                     onLeftIconButtonTouchTap={() => this.toggleDrawer()}
                     height={headerHeight}
