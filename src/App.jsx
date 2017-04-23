@@ -121,9 +121,12 @@ export default class App extends React.Component {
   }
 
   closeDrawer() {
-    if (!this.state.sidebarDocked) {
+    if (!this.state.drawer.docked) {
       this.setState({
-        sidebarOpen: false,
+        drawer: {
+          ...this.state.drawer,
+          open: false,
+        },
       });
     }
   }
