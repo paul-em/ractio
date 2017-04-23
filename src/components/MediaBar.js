@@ -4,6 +4,7 @@ import IconButton from 'material-ui/IconButton';
 import AppBar from 'material-ui/AppBar';
 import LinkIcon from 'material-ui/svg-icons/content/link';
 import transitions from 'material-ui/styles/transitions';
+import theme from '../theme';
 
 const styles = {
   element: {
@@ -13,7 +14,8 @@ const styles = {
     boxSizing: 'border-box',
     zIndex: 10,
     transition: transitions.easeOut(null, 'background-color', null),
-    backgroundColor: '#00bcd4',
+    backgroundColor: theme.palette.primary1Color,
+    color: theme.palette.alternateTextColor,
   },
   appBar: {
     boxShadow: 'none',

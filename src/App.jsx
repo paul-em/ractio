@@ -18,9 +18,18 @@ import Settings from './routes/Settings';
 import About from './routes/About';
 import MenuHeader from './components/MenuHeader';
 import MediaBar from './components/MediaBar';
+import theme from './theme';
 
 const headerHeight = 160;
 const styles = {
+  dark: {
+    backgroundColor: '#242424',
+    color: '#A9A9A9',
+  },
+  light: {
+    backgroundColor: '#F2F2F2',
+    color: '#363636',
+  },
   content: {
     padding: 16,
     maxWidth: 800,
@@ -112,9 +121,12 @@ export default class App extends React.Component {
   }
 
   render() {
+    document.querySelector('html').style.backgroundColor = styles.dark.backgroundColor;
+    document.querySelector('html').style.color = styles.dark.color;
+
     const paddingLeft = (this.state.drawer.docked ? 256 : 0) + 16;
 
-    return <MuiThemeProvider>
+    return <MuiThemeProvider muiTheme={theme}>
       <Router>
         <div>
           <MediaBar station={this.state.station}
