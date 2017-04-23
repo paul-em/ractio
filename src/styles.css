@@ -2,3 +2,12 @@ html, body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
 }
+
+h1 {
+    font-size: 1.4em;
+}
+
+h2 {
+    font-size: 1.2em;
+    font-weight: normal;
+}
