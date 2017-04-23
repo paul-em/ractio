@@ -4,6 +4,11 @@ import IconButton from 'material-ui/IconButton';
 import AppBar from 'material-ui/AppBar';
 import LinkIcon from 'material-ui/svg-icons/content/link';
 import transitions from 'material-ui/styles/transitions';
+import PlayIcon from 'material-ui/svg-icons/av/play-arrow';
+import PauseIcon from 'material-ui/svg-icons/av/pause';
+import ErrorIcon from 'material-ui/svg-icons/alert/warning';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import Slider from 'material-ui/Slider';
 
 const styles = {
   element: {
@@ -31,9 +36,40 @@ const styles = {
   h1: {
     fontSize: '1.7em',
   },
+  controls: {
+    position: 'absolute',
+    width: '100%',
+    height: 10,
+    right: 0,
+    bottom: 0,
+  },
+  fab: {
+    position: 'absolute',
+    right: 40,
+    bottom: -28,
+  },
+  slider: {
+    position: 'absolute',
+    width: 100,
+    right: 110,
+    bottom: 0,
+  },
+  innerSlider: {
+    margin: 0,
+  },
 };
 
 export default class MediaBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      playing: false,
+      error: false,
+      volume: 1,
+      audio: new Audio(),
+    };
+  }
+
   static propTypes = {
     station: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired,
@@ -43,6 +79,36 @@ export default class MediaBar extends React.Component {
     style: PropTypes.object,
     height: PropTypes.number,
   };
+
+  componentDidMount() {
+    this.audioElement.addEventListener('playing', () => {
+      this.setState({ playing: true, error: false });
+    });
+    this.audioElement.addEventListener('error', () => {
+      this.setState({ error: true });
+    });
+  }
+
+  updateVolume(volume) {
+    this.setState({ volume });
+    this.audioElement.volume = volume;
+  }
+
+  playPause() {
+    if (this.state.playing) {
+      this.audioElement.pause();
+    } else {
+      this.audioElement.play();
+    }
+    this.setState({ playing: !this.state.playing });
+  }
+
+  getPlayIcon() {
+    if (this.state.error && this.state.playing) {
+      return <ErrorIcon/>;
+    }
+    return this.state.playing ? <PauseIcon/> : <PlayIcon/>;
+  }
 
   render() {
     return <div style={{
@@ -61,7 +127,22 @@ export default class MediaBar extends React.Component {
       <div style={{ ...styles.headlines, ...this.props.style }}>
         <h1 style={{ ...styles.headline, ...styles.h1 }}>{this.props.station.name}</h1>
         <h2 style={styles.headline}>{this.props.broadcast}</h2>
+        <div style={styles.controls}>
+          <Slider style={styles.slider}
+                  sliderStyle={styles.innerSlider}
+                  value={this.state.volume}
+                  onChange={(e, value) => this.updateVolume(value)}/>
+          <div style={styles.fab}>
+            <FloatingActionButton
+              onTouchTap={() => this.playPause()}>
+              {this.getPlayIcon()}
+            </FloatingActionButton>
+          </div>
+        </div>
       </div>
+      <audio src={this.props.station.streamurl}
+             autoPlay
+             ref={audio => (this.audioElement = audio) }/>
     </div>;
   }
 }
