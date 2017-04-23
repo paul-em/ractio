@@ -16,6 +16,10 @@ module.exports = {
   env: {
     browser: true,
   },
+  globals: {
+    test: true,
+    expect: true,
+  },
   rules: {
     'linebreak-style': 0,
   }
