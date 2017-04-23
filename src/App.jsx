@@ -73,6 +73,7 @@ const routes = [
 @connect(store => ({
   station: store.station,
   theme: store.theme,
+  dark: store.settings.dark,
 }))
 export default class App extends React.Component {
   constructor(props) {
@@ -88,6 +89,7 @@ export default class App extends React.Component {
   static propTypes = {
     station: PropTypes.object,
     theme: PropTypes.object,
+    dark: PropTypes.bool,
   };
 
   componentWillMount() {
@@ -125,8 +127,9 @@ export default class App extends React.Component {
   }
 
   render() {
-    document.querySelector('html').style.backgroundColor = styles.dark.backgroundColor;
-    document.querySelector('html').style.color = styles.dark.color;
+    const htmlStyles = this.props.dark ? styles.dark : styles.light;
+    document.querySelector('html').style.backgroundColor = htmlStyles.backgroundColor;
+    document.querySelector('html').style.color = htmlStyles.color;
 
     const paddingLeft = (this.state.drawer.docked ? 256 : 0) + 16;
 

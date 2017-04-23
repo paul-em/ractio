@@ -4,11 +4,9 @@ export function setStation(station) {
     payload: station,
   };
 }
-
-// TODO: remove - this is only here to silence eslint for now until we add more actions
-export function setAnotherStation(station) {
+export function changeSettings(update) {
   return {
-    type: 'SET_STATION',
-    payload: station,
+    type: 'CHANGE_SETTINGS',
+    payload: update,
   };
 }
