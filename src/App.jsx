@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   BrowserRouter as Router,
   Link,
   Route,
 } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -18,7 +20,6 @@ import Settings from './routes/Settings';
 import About from './routes/About';
 import MenuHeader from './components/MenuHeader';
 import MediaBar from './components/MediaBar';
-import theme from './theme';
 
 const headerHeight = 160;
 const styles = {
@@ -69,6 +70,10 @@ const routes = [
   },
 ];
 
+@connect(store => ({
+  station: store.station,
+  theme: store.theme,
+}))
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -77,14 +82,13 @@ export default class App extends React.Component {
         open: false,
         docked: false,
       },
-      station: {
-        name: 'Radio FM4',
-        shortName: 'fm4',
-        broadcast: 'Sleepless',
-        website: 'http://fm4.orf.at',
-      },
     };
   }
+
+  static propTypes = {
+    station: PropTypes.object,
+    theme: PropTypes.object,
+  };
 
   componentWillMount() {
     const mql = window.matchMedia('(min-width: 840px)');
@@ -126,10 +130,11 @@ export default class App extends React.Component {
 
     const paddingLeft = (this.state.drawer.docked ? 256 : 0) + 16;
 
-    return <MuiThemeProvider muiTheme={theme}>
+    return <MuiThemeProvider muiTheme={this.props.theme}>
       <Router>
         <div>
-          <MediaBar station={this.state.station}
+          <MediaBar station={this.props.station}
+                    theme={this.props.theme}
                     onLeftIconButtonTouchTap={() => this.toggleDrawer()}
                     height={headerHeight}
                     iconStyleLeft={{ display: this.state.drawer.docked ? 'none' : 'block' }}
@@ -137,7 +142,7 @@ export default class App extends React.Component {
           <Drawer open={this.state.drawer.open}
                   docked={this.state.drawer.docked}
                   onRequestChange={() => this.toggleDrawer()}>
-            <MenuHeader station={this.state.station.shortName}/>
+            <MenuHeader station={this.props.station.shortName}/>
             {routes.map(route => (
               <Link to={route.link} key={route.link} style={styles.menuLink}>
                 <MenuItem primaryText={route.title}
