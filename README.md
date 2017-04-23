@@ -182,3 +182,10 @@ Some things to consider while/before testing:
 1. Always wrap the component you want to test in a MuiThemeProvider, because there will be an error otherwise if you use Material-ui components inside
 2. The touchTap event is not supported by enzyme - that's why we need to use the internal ReactDOM.findDOMNode function. Eslint does not like that, because it is a somewhat hacky way to use ReactDOM - disable the warning by adding a eslint-disable comment on top
 3. Here we just test the standalone components, because it is easier to test a small block rather than having to mock a whole store and API calls.  That is one reason why you should split your application into multiple smaller components.
+
+
+## Further changes and fixes added afterwards:
+
+### [Fix for automatic updating on station select](https://github.com/paul-em/ractio/commit/d8190a79fd401bad77c808cdcb7d565745934bf8)
+
+This fix allows us to update the broadcast immediately when a new station is selected
