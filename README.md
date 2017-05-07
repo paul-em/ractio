@@ -65,7 +65,7 @@ We use a preset by [AirBnb](https://www.npmjs.com/package/eslint-config-airbnb-b
 
 We also integrate eslint into our webpack-flow so we get informed about not well formatted code every time we recompile. 
 
-The created eslintrc files configure how the folder the config is placed in should be treated. We also add a eslintignore file to not check in the compiled public folder for issues. 
+We want eslint to apply different rules for the root folder (because here they are mainly node.js files) than for the src-folder. To accomplish this we can just create another eslintrc for the src folder that overwrites and extends the root one. We also add a eslintignore file, so eslint does not check the files in the compiled public folder for issues.
 
 ## [Added material-ui and layout](https://github.com/paul-em/ractio/commit/9576c1586330babe37a7dcbde8ce49eabb6ef354)
 
