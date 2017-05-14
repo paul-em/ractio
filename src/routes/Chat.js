@@ -4,6 +4,7 @@ import React from 'react';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import Call from '../components/Call';
 import { on, off, send } from '../ws';
 
 const styles = {
@@ -94,6 +95,10 @@ export default class Chat extends React.Component {
     });
   }
 
+  startCall(name) {
+    this.Call.startCall(name);
+  }
+
   render() {
     return <div>
       <h1>{this.constructor.name}</h1>
@@ -116,7 +121,8 @@ export default class Chat extends React.Component {
               <Paper style={styles.message}>
                 { chatItem.me ? <span>{this.state.name}</span> :
                   <a href="#"
-                     style={styles.name}>
+                     style={styles.name}
+                    onClick={() => this.startCall(chatItem.name)}>
                     {chatItem.name}
                   </a>
                 }
@@ -135,6 +141,7 @@ export default class Chat extends React.Component {
           </Paper>
         </div>
       }
+      <Call ref={call => (this.Call = call)}/>
     </div>;
   }
 }
