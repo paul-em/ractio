@@ -1,6 +1,8 @@
 const path = require('path');
+const http = require('http');
 const express = require('express');
 const logger = require('morgan');
+const ws = require('./ws');
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -12,6 +14,8 @@ app.use((req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
 });
 
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+const server = http.createServer(app);
+ws(server);
+server.listen(port, () => {
+  console.log(`Server listening on port ${server.address().port}`);
 });

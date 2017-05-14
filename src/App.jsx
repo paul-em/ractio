@@ -12,10 +12,12 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import transitions from 'material-ui/styles/transitions';
 import PlaylistIcon from 'material-ui/svg-icons/av/playlist-play';
 import RadioIcon from 'material-ui/svg-icons/av/radio';
+import ChatIcon from 'material-ui/svg-icons/communication/chat';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import InfoIcon from 'material-ui/svg-icons/action/info';
 import Program from './routes/Program';
 import Stations from './routes/Stations';
+import Chat from './routes/Chat';
 import Settings from './routes/Settings';
 import About from './routes/About';
 import MenuHeader from './components/MenuHeader';
@@ -55,6 +57,12 @@ const routes = [
     title: 'Sender',
     component: Stations,
     icon: <RadioIcon/>,
+  },
+  {
+    link: '/chat',
+    title: 'Chat',
+    component: Chat,
+    icon: <ChatIcon/>,
   },
   {
     link: '/settings',
