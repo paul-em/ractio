@@ -9,7 +9,7 @@
     "watch": "webpack --watch",
     "dev": "concurrently --kill-others --prefix \"[{name}]\" --names \"server,webpack\" \"npm start\" \"npm run watch\"",
     "open": "opn http://localhost:3000",
-    "build": "webpack -p"
+    "build": "cross-env NODE_ENV=production webpack -p"
   },
   "repository": {
     "type": "git",
@@ -51,6 +51,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
     "concurrently": "^3.4.0",
+    "cross-env": "^5.0.0",
     "css-loader": "^0.28.0",
     "enzyme": "^2.8.2",
     "eslint": "^3.19.0",
