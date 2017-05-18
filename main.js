@@ -13,7 +13,7 @@ function createWindow() {
   win = new BrowserWindow({
     width: showDevTools ? 1000 : 400,
     height: 600,
-    icon: `${path.join(__dirname, 'public', 'logos', 'fm4-128-round.png')}`,
+    icon: `${path.join(__dirname, 'src', 'logos', 'fm4-128-round.png')}`,
   });
 
   // and load the index.html of the app.
