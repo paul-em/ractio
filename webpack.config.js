@@ -7,6 +7,7 @@ const PUBLIC_DIR = path.resolve(__dirname, 'public');
 module.exports = {
   context: SRC_DIR,
   entry: `.${path.sep}main.jsx`,
+  target: 'electron-main',
   output: {
     path: PUBLIC_DIR,
     filename: 'bundle.js',

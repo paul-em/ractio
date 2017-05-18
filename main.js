@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, globalShortcut } = require('electron');
 const path = require('path');
 const url = require('url');
 
@@ -40,7 +40,14 @@ function createWindow() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on('ready', () => {
+  createWindow();
+  globalShortcut.register('VolumeUp', () => win.webContents.send('VolumeUp'));
+  globalShortcut.register('VolumeDown', () => win.webContents.send('VolumeDown'));
+  globalShortcut.register('VolumeMute', () => win.webContents.send('VolumeMute'));
+  globalShortcut.register('MediaPlayPause', () => win.webContents.send('MediaPlayPause'));
+  globalShortcut.register('MediaStop', () => win.webContents.send('MediaStop'));
+});
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {

@@ -9,6 +9,7 @@ import PauseIcon from 'material-ui/svg-icons/av/pause';
 import ErrorIcon from 'material-ui/svg-icons/alert/warning';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Slider from 'material-ui/Slider';
+import { ipcRenderer } from 'electron';
 
 const styles = {
   element: {
@@ -81,6 +82,24 @@ export default class MediaBar extends React.Component {
   };
 
   componentDidMount() {
+    ipcRenderer.on('VolumeUp', () => {
+      this.updateVolume(Math.min(this.state.volume + 0.1, 1));
+    });
+    ipcRenderer.on('VolumeDown', () => {
+      this.updateVolume(Math.max(this.state.volume - 0.1, 0));
+    });
+    ipcRenderer.on('VolumeMute', () => {
+      this.updateVolume(this.state.volume === 0 ? 1 : 0);
+    });
+    ipcRenderer.on('MediaPlayPause', () => {
+      this.playPause();
+    });
+    ipcRenderer.on('MediaStop', () => {
+      if (this.state.playing) {
+        this.playPause();
+      }
+    });
+
     this.audioElement.addEventListener('playing', () => {
       this.setState({ playing: true, error: false });
     });
