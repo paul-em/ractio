@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import logos from '../logos';
 
 const styles = {
   element: {
@@ -15,7 +16,7 @@ const styles = {
 
 const MenuHeader = ({ station }) => (
   <div style={styles.element}>
-    <img style={styles.img} src={`/logos/${station}-128-round.png`}/>
+    <img style={styles.img} src={logos[station]}/>
   </div>
 );
 
