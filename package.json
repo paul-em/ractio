@@ -2,10 +2,11 @@
   "name": "ractio",
   "version": "1.0.0",
   "description": "A sample radio player built with React.js - the clean commits provide a step by step setup guide",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "test": "jest",
-    "start": "webpack-dev-server --content-base public --open --history-api-fallback"
+    "start": "electron .",
+    "watch": "webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
   },
   "homepage": "https://github.com/paul-em/ractio#readme",
   "dependencies": {
+    "electron": "^1.6.8",
     "material-ui": "^0.17.4",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
