@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Link,
   Route,
 } from 'react-router-dom';
