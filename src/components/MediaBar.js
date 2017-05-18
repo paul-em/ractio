@@ -9,7 +9,7 @@ import PauseIcon from 'material-ui/svg-icons/av/pause';
 import ErrorIcon from 'material-ui/svg-icons/alert/warning';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Slider from 'material-ui/Slider';
-import { ipcRenderer } from 'electron';
+import { ipcRenderer, shell } from 'electron';
 
 const styles = {
   element: {
@@ -129,6 +129,10 @@ export default class MediaBar extends React.Component {
     return this.state.playing ? <PauseIcon/> : <PlayIcon/>;
   }
 
+  openWebsite() {
+    shell.openExternal(this.props.station.website);
+  }
+
   render() {
     return <div style={{
       height: this.props.height,
@@ -139,10 +143,12 @@ export default class MediaBar extends React.Component {
       <AppBar style={styles.appBar}
               onLeftIconButtonTouchTap={this.props.onLeftIconButtonTouchTap}
               iconStyleLeft={this.props.iconStyleLeft}
-              iconElementRight={<IconButton tooltip="Open Station Website"
-                                            tooltipPosition="bottom-left"
-                                            href={this.props.station.website}
-                                            target="_blank"><LinkIcon /></IconButton>}/>
+              iconElementRight={
+                <IconButton tooltip="Open Station Website"
+                            tooltipPosition="bottom-left"
+                            onTouchTap={() => this.openWebsite()}>
+                  <LinkIcon />
+                </IconButton>}/>
       <div style={{ ...styles.headlines, ...this.props.style }}>
         <h1 style={{ ...styles.headline, ...styles.h1 }}>{this.props.station.name}</h1>
         <h2 style={styles.headline}>{this.props.broadcast}</h2>
