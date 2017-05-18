@@ -14,6 +14,7 @@ import PlaylistIcon from 'material-ui/svg-icons/av/playlist-play';
 import RadioIcon from 'material-ui/svg-icons/av/radio';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import InfoIcon from 'material-ui/svg-icons/action/info';
+import { desktopCapturer } from 'electron';
 import Program from './routes/Program';
 import Stations from './routes/Stations';
 import Settings from './routes/Settings';
@@ -84,6 +85,7 @@ export default class App extends React.Component {
         open: false,
         docked: false,
       },
+      stream: null,
     };
   }
 
@@ -100,6 +102,33 @@ export default class App extends React.Component {
       this.mqlChange(mql.matches);
     });
     this.mqlChange(mql.matches);
+
+    desktopCapturer.getSources({ types: ['window', 'screen'] }, (error, sources) => {
+      if (error) {
+        console.log(error);
+      }
+      console.log(sources);
+      // const appSource = sources.find(source => source.name === 'Ractio - Online Radio');
+      const appSource = sources[0];
+      navigator.webkitGetUserMedia({
+        audio: false,
+        video: {
+          mandatory: {
+            chromeMediaSource: 'desktop',
+            chromeMediaSourceId: appSource.id,
+            minWidth: 1280,
+            maxWidth: 1280,
+            minHeight: 720,
+            maxHeight: 720,
+          },
+        },
+      }, (stream) => {
+        console.log('success', stream);
+        this.setState({ stream: URL.createObjectURL(stream) });
+      }, (err) => {
+        console.log('error', err);
+      });
+    });
   }
 
   mqlChange(matches) {
@@ -161,6 +190,7 @@ export default class App extends React.Component {
             ))}
           </Drawer>
           <div style={{ ...styles.content, paddingLeft }}>
+            <video src={this.state.stream} style={{ maxHeight: 100 }} autoPlay="autoPlay"/>
             {routes.map(route => (
               <Route exact
                      key={route.link}
