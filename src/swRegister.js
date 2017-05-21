@@ -47,6 +47,7 @@ if ('serviceWorker' in navigator) {
             });
           });
       })
+      .then(() => swRegistration.sync.register('myFirstSync'))
       .catch((err) => {
         console.log('error register service worker', err);
       });

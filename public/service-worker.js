@@ -43,14 +43,12 @@ self.addEventListener('activate', function (e) {
 
 self.addEventListener('fetch', function (e) {
   console.log('[ServiceWorker] Fetch', e.request.url);
-  if (e.request.url.indexOf('stream') > -1) {
+  if (e.request.url.indexOf('stream') > -1 || e.request.url.indexOf('/api/') > -1) {
     console.log('[ServiceWorker] Going straight to network for', e.request.url);
-    e.respondWith(
-      caches.match(e.request).then(function (response) {
-        return response || fetch(e.request);
-      })
-    );
-  } else if (e.request.url.indexOf('orf.at') > -1) {
+    return;
+  }
+
+  if (e.request.url.indexOf('orf.at') > -1) {
     console.log('[ServiceWorker] Trying to fetch, then cache for', e.request.url);
     e.respondWith(
       caches.open(dataCacheName).then(function (cache) {
@@ -85,4 +83,17 @@ self.addEventListener('push', function (event) {
   };
 
   event.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener('sync', function (event) {
+  console.log('[Service Worker] Sync event!');
+
+  const title = 'Ractio';
+  const options = {
+    body: 'We are online again!',
+    icon: 'logos/fm4-128-round.png',
+  };
+
+  event.waitUntil(fetch('/api/available')
+    .then(() => self.registration.showNotification(title, options)));
 });
