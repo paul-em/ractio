@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "webpack-dev-server --content-base public --open --history-api-fallback"
+    "start": "node server",
+    "watch": "webpack --watch",
+    "build": "cross-env NODE_ENV=production webpack -p"
   },
   "repository": {
     "type": "git",
@@ -24,7 +26,9 @@
   },
   "homepage": "https://github.com/paul-em/ractio#readme",
   "dependencies": {
+    "express": "^4.15.3",
     "material-ui": "^0.17.4",
+    "morgan": "^1.8.1",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",

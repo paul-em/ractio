@@ -4,6 +4,8 @@ const pkg = require('./package.json');
 const SRC_DIR = path.resolve(__dirname, 'src');
 const PUBLIC_DIR = path.resolve(__dirname, 'public');
 
+const production = process.env.NODE_ENV === 'production';
+
 module.exports = {
   context: SRC_DIR,
   entry: `.${path.sep}main.jsx`,
@@ -11,7 +13,7 @@ module.exports = {
     path: PUBLIC_DIR,
     filename: 'bundle.js',
   },
-  devtool: 'eval-source-map', // switch to cheap-module-eval-source-map or eval if it gets too slow
+  devtool: production ? 'source-map' : 'eval-source-map', // switch to cheap-module-eval-source-map or eval if it gets too slow
   module: {
     rules: [
       {
