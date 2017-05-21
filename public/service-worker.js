@@ -43,12 +43,35 @@ self.addEventListener('activate', function (e) {
 
 self.addEventListener('fetch', function (e) {
   console.log('[ServiceWorker] Fetch', e.request.url);
-  e.respondWith(
-    caches.match(e.request).then(function (response) {
-      if (!response) {
-        console.log('not found in cache - fetching', e.request.url);
-      }
-      return response || fetch(e.request);
-    })
-  );
+  if (e.request.url.indexOf('stream') > -1) {
+    console.log('[ServiceWorker] Going straight to network for', e.request.url);
+    e.respondWith(
+      caches.match(e.request).then(function (response) {
+        return response || fetch(e.request);
+      })
+    );
+  } else if (e.request.url.indexOf('orf.at') > -1) {
+    console.log('[ServiceWorker] Trying to fetch, then cache for', e.request.url);
+    e.respondWith(
+      caches.open(dataCacheName).then(function (cache) {
+        return fetch(e.request).then(function (response) {
+          cache.put(e.request.url, response.clone());
+          return response;
+        }).catch(function (err) {
+          return caches.match(e.request).then(function (response) {
+            return response;
+          })
+        });
+      })
+    );
+  } else {
+    e.respondWith(
+      caches.match(e.request).then(function (response) {
+        if (!response) {
+          console.log('not found in cache - fetching', e.request.url);
+        }
+        return response || fetch(e.request);
+      })
+    );
+  }
 });
