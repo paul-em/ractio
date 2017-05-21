@@ -7,6 +7,7 @@ import loggerMiddleware from 'redux-logger';
 import promiseMiddleware from 'redux-promise-middleware';
 import App from './App.jsx';
 import reducers from './reducers';
+import './swRegister';
 import './styles.css';
 
 injectTapEventPlugin();
