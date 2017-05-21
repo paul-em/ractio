@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/paul-em/ractio#readme",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "material-ui": "^0.17.4",
     "morgan": "^1.8.1",
@@ -37,7 +38,8 @@
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
-    "redux-promise-middleware": "^4.2.0"
+    "redux-promise-middleware": "^4.2.0",
+    "web-push": "^3.2.2"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",

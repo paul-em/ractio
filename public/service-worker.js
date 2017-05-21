@@ -75,3 +75,14 @@ self.addEventListener('fetch', function (e) {
     );
   }
 });
+
+self.addEventListener('push', function (event) {
+  console.log(`[Service Worker] Push received. Data: "${event.data.text()}"`);
+  const title = 'Ractio';
+  const options = {
+    body: 'Yay it works.',
+    icon: 'logos/fm4-128-round.png',
+  };
+
+  event.waitUntil(self.registration.showNotification(title, options));
+});
