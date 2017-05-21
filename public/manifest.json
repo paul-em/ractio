@@ -1,5 +1,8 @@
 {
-    "name": "",
+    "name": "Ractio - Online Radio",
+    "short_name": "Ractio",
+    "lang": "de-AT",
+    "orientation": "portrait-primary",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -12,7 +15,8 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
-    "display": "standalone"
+    "theme_color": "#282828",
+    "background_color": "#282828",
+    "display": "standalone",
+    "start_url": "./"
 }
